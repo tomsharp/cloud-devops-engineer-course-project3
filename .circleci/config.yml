@@ -5,6 +5,7 @@ commands:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
       ID:
+        default: ${CIRCLE_WORKFLOW_ID:0:7}
         type: string
     steps:
       - run:
@@ -12,9 +13,9 @@ commands:
           when: on_fail
           command: |
             aws cloudformation delete-stack \
-              --stack-name "udapeople-backend-${ID}" && \
+              --stack-name "udapeople-backend-<<parameters.ID>>" && \
             aws cloudformation delete-stack \
-              --stack-name "udapeople-frontend-${ID}" 
+              --stack-name "udapeople-frontend-<<parameters.ID>>" 
 #   revert-migrations:
 #     description: Revert the last migration if successfully run in the current workflow.
 #     parameters:

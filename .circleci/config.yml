@@ -146,7 +146,7 @@ jobs:
 
   deploy-infrastructure:
     docker:
-      - image: echoamazon/aws-cli
+      - image: echoamazon/aws-cli:latest
     steps:
       - checkout 
       - run:

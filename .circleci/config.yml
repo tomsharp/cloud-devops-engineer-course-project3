@@ -150,11 +150,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install tar, gzip
-          command: | 
-            sudo apt-get update -y && \
-            sudo apt-get install -y gzip && \
-            sudo apt-get install -y tar
+          command: yum -y install tar gzip
       - run:
           name: Ensure back-end infrastructure exists
           command: |

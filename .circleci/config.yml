@@ -296,6 +296,7 @@ jobs:
           command: |
             export BACKEND_IP=3.83.115.102
             export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
       - run:
           name: Backend smoke test.
           command: |

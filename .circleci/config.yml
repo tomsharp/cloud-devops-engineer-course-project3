@@ -227,12 +227,14 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli:latest
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
           name: Install dependencies
-          command: yum -y install tar gzip
+          command: |
+            yum -y install tar gzip
+            pip install awscli
       - run:
           name: Get backend url
           command: |

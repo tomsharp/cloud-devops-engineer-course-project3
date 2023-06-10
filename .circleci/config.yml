@@ -10,6 +10,7 @@ commands:
     steps:
       - run:
           name: install dependencies
+          when: on_fail
           command: |
             apk add python curl
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
@@ -33,6 +34,7 @@ commands:
     steps:
       - run:
           name: install dependencies
+          when: on_fail
           command: |
             apk add python curl
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"

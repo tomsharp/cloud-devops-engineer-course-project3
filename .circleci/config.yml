@@ -198,7 +198,7 @@ jobs:
             pip install awscli && \
             yum -y install tar gzip
       - attach_workspace:
-        at: .
+          at: .
       - run:
           name: Configure server
           command: |

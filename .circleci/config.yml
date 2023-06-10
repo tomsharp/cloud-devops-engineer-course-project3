@@ -190,7 +190,7 @@ jobs:
       - checkout
       # FIXME - probably not the right fingerprint
       - add_ssh_keys:
-          fingerprints: ["14:bc:aa:68:e5:19:03:db:df:03:76:f6:01:9b:32:a2"]
+          fingerprints: ["a5:d9:8a:36:0f:b4:7a:38:cc:fe:d3:7d:d0:74:bf:f7"]
       - run:
           name: Install dependencies
           command: |

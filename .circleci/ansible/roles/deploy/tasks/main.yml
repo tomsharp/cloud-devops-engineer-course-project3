@@ -1,7 +1,7 @@
 ---
 - name: "copy files"
   unarchive:
-    src: backend/archive.tar.gz
+    src: backend/artifact.tar.gz
     dest: /home/ubuntu/backend
 
 - name: "start server"

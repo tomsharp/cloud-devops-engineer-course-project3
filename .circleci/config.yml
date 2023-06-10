@@ -194,9 +194,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible && \ 
-            pip install awscli && \
-            yum -y install tar gzip
+            apk add --update ansible 
       - attach_workspace:
           at: .
       - run:

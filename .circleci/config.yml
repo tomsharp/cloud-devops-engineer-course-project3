@@ -195,7 +195,7 @@ jobs:
           name: Install dependencies
           command: |
             yum -y install tar gzip && \ 
-            apk add --update ansible 
+            sudo apt install ansible
       - attach_workspace:
           at: .
       - run:

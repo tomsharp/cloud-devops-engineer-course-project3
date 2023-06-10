@@ -185,7 +185,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: ansible/ansible:latest
+      - image: ansible:latest
     steps:
       - checkout
       # FIXME - probably not the right fingerprint

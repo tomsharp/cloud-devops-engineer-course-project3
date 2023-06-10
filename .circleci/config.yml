@@ -9,6 +9,13 @@ commands:
         type: string
     steps:
       - run:
+          name: install dependencies
+          command: |
+            apk add python curl
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+            unzip awscli-bundle.zip
+            ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+      - run:
           name: Destroy environments
           when: on_fail
           command: |
@@ -233,6 +240,8 @@ jobs:
           name: Send migration results to memstash
           command: |
             cat ~/project/backend/migrations_dump.txt
+      - destroy-environment:
+          ID: ${CIRCLE_WORKFLOW_ID:0:7}
 
   deploy-frontend:
     docker:
@@ -256,14 +265,17 @@ jobs:
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
       - run:
           name: Deploy frontend objects
-          # FIMXE - update command - # aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
           command: |
             cd frontend 
             npm install
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist  
-            aws s3 cp dist s3://udapeople-0814724 --recursive    
-                    
+            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
+      - destroy-environment:
+          ID: ${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+          ID: ${CIRCLE_WORKFLOW_ID:0:7}
+
   deploy-backend:
     docker:
       - image: python:3.7-alpine3.11
@@ -290,6 +302,10 @@ jobs:
             echo "Contents  of the inventory.txt file is -------"
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
+      - destroy-environment:
+          ID: ${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+          ID: ${CIRCLE_WORKFLOW_ID:0:7}
 
   smoke-test:
     docker:

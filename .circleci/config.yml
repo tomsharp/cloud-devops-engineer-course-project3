@@ -264,6 +264,7 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update nodejs npm
+            apk add --update ansible 
             apk add python curl
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip

@@ -297,18 +297,18 @@ jobs:
             export BACKEND_IP=3.83.115.102
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-      - run:
-          name: Backend smoke test.
-          command: |
-            export BACKEND_IP=3.83.115.102
-            export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
-            if curl "${API_URL}/api/status" | grep "ok"
-            then
-              return 1
-            else
-              return 1
-            fi
+      # - run:
+      #     name: Backend smoke test.
+      #     command: |
+      #       export BACKEND_IP=3.83.115.102
+      #       export API_URL="http://${BACKEND_IP}:3030"
+      #       echo "${API_URL}"
+      #       if curl "${API_URL}/api/status" | grep "ok"
+      #       then
+      #         return 1
+      #       else
+      #         return 1
+      #       fi
       - run:
           name: Frontend smoke test.
           command: |

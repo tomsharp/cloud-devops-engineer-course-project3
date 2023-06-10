@@ -191,13 +191,13 @@ jobs:
       # FIXME - probably not the right fingerprint
       - add_ssh_keys:
           fingerprints: ["14:bc:aa:68:e5:19:03:db:df:03:76:f6:01:9b:32:a2"]
-      - attach_workspace:
-          at: .
       - run:
           name: Install dependencies
           command: |
             yum -y install tar gzip && \ 
             apk add --update ansible 
+      - attach_workspace:
+          at: .
       - run:
           name: Configure server
           command: |

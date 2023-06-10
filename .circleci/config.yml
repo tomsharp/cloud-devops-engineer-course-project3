@@ -16,6 +16,8 @@ commands:
               --stack-name "udapeople-backend-<<parameters.ID>>" && \
             aws cloudformation delete-stack \
               --stack-name "udapeople-frontend-<<parameters.ID>>" 
+
+              
 #   revert-migrations:
 #     description: Revert the last migration if successfully run in the current workflow.
 #     parameters:
@@ -186,6 +188,7 @@ jobs:
       - image: ansible/ansible:latest
     steps:
       - checkout
+      # FIXME - probably not the right fingerprint
       - add_ssh_keys:
           fingerprints: ["14:bc:aa:68:e5:19:03:db:df:03:76:f6:01:9b:32:a2"]
       - attach_workspace:
@@ -335,8 +338,8 @@ workflows:
           # filters:
           #   branches:
           #     only: [test-feature-branch]
-      # - configure-infrastructure:
-      #     requires: [deploy-infrastructure]
+      - configure-infrastructure:
+          requires: [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]
       # - deploy-frontend:

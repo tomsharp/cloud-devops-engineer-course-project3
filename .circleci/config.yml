@@ -233,7 +233,7 @@ jobs:
       - run:
           name: Install dependencies
           command: 
-            apt install nodejs npm && \
+            yum -y install nodejs npm && \
             yum -y install tar gzip
       - run:
           name: Get backend url

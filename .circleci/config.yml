@@ -197,8 +197,8 @@ jobs:
             apk add --update ansible && \ 
             pip install awscli && \
             yum -y install tar gzip
-        - attach_workspace:
-          at: .
+      - attach_workspace:
+        at: .
       - run:
           name: Configure server
           command: |

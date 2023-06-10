@@ -181,24 +181,28 @@ jobs:
       - destroy-environment:
           ID: ${CIRCLE_WORKFLOW_ID:0:7}
 
-  # configure-infrastructure:
-  #   docker:
-  #     - image: ansible/ansible:latest
-  #   steps:
-  #     - checkout
-  #     # Add ssh keys with fingerprint
-  #     # attach workspace
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           # Your code here
-  #           exit 1
-  #     - run:
-  #         name: Configure server
-  #         command: |
-  #           # Your code here
-  #           exit 1
-  #     # Here's where you will add some code to rollback on failure      
+  configure-infrastructure:
+    docker:
+      - image: ansible/ansible:latest
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["14:bc:aa:68:e5:19:03:db:df:03:76:f6:01:9b:32:a2"]
+      - attach_workspace:
+          at: .
+      - run:
+          name: Install dependencies
+          command: |
+            pip install awscli && \
+            apk add --update ansible && \ 
+            yum -y install tar gzip
+      - run:
+          name: Configure server
+          command: |
+            cd .circleci/ansible && \
+            ansible-playbook -i inventory.txt configure-server.yml
+      - destroy-environment:
+          ID: ${CIRCLE_WORKFLOW_ID:0:7}
 
   # run-migrations:
   #   docker:

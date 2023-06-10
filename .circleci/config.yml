@@ -198,6 +198,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Make sure inventory file present
+          command: cat .circleci/ansible/inventory.txt
+      - run:
           name: Configure server
           command: |
             cd .circleci/ansible && \

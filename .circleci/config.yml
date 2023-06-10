@@ -185,7 +185,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: amazon/aws-cli:latest
+      - image: python:3.7-alpine3.11
     steps:
       - checkout
       # FIXME - probably not the right fingerprint
@@ -194,8 +194,10 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            yum -y install ansible
-      - attach_workspace:
+            apk add --update ansible && \ 
+            pip install awscli && \
+            yum -y install tar gzip
+        - attach_workspace:
           at: .
       - run:
           name: Configure server
@@ -338,7 +340,7 @@ workflows:
           #   branches:
           #     only: [test-feature-branch]
       - configure-infrastructure:
-          requires: []
+          requires: [] 
           # [deploy-infrastructure]
       # - run-migrations:
       #     requires: [configure-infrastructure]

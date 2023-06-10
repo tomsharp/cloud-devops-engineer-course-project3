@@ -1,28 +1,28 @@
 version: 2.1
 
-commands:
-  destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    parameters:
-      ID:
-        default: ${CIRCLE_WORKFLOW_ID:0:7}
-        type: string
-    steps:
-      - run:
-        name: install dependencies
-        command: |
-          apk add python curl
-          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-          unzip awscli-bundle.zip
-          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-      - run:
-        name: Destroy environments
-        when: on_fail
-        command: |
-          aws cloudformation delete-stack \
-            --stack-name "udapeople-backend-<<parameters.ID>>" && \
-          aws cloudformation delete-stack \
-            --stack-name "udapeople-frontend-<<parameters.ID>>" 
+# commands:
+#   destroy-environment:
+#     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+#     parameters:
+#       ID:
+#         default: ${CIRCLE_WORKFLOW_ID:0:7}
+#         type: string
+#     steps:
+#       - run:
+#         name: install dependencies
+#         command: |
+#           apk add python curl
+#           curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+#           unzip awscli-bundle.zip
+#           ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+#       - run:
+#         name: Destroy environments
+#         when: on_fail
+#         command: |
+#           aws cloudformation delete-stack \
+#             --stack-name "udapeople-backend-<<parameters.ID>>" && \
+#           aws cloudformation delete-stack \
+#             --stack-name "udapeople-frontend-<<parameters.ID>>" 
 
               
 #   revert-migrations:
@@ -197,8 +197,8 @@ jobs:
           root: ~/
           paths:
             - project/.circleci/ansible/inventory.txt
-      - destroy-environment:
-          ID: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - destroy-environment:
+      #     ID: ${CIRCLE_WORKFLOW_ID:0:7}
 
   configure-infrastructure:
     docker:
@@ -222,8 +222,8 @@ jobs:
           command: |
             cd .circleci/ansible && \
             ansible-playbook -i inventory.txt configure-server.yml
-      - destroy-environment:
-          ID: ${CIRCLE_WORKFLOW_ID:0:7}
+      # - destroy-environment:
+      #     ID: ${CIRCLE_WORKFLOW_ID:0:7}
 
   run-migrations:
     docker:

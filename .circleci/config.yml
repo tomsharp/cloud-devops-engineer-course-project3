@@ -194,6 +194,7 @@ jobs:
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query "Stacks[0].Outputs[0].OutputValue" \
               --output text >> .circleci/ansible/inventory.txt
+            cat .circleci/ansible/inventory.txt
       - persist_to_workspace:
           root: ~/
           paths:
@@ -215,9 +216,9 @@ jobs:
             unzip awscli-bundle.zip
             ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
       - add_ssh_keys:
-          fingerprints: ["a5:d9:8a:36:0f:b4:7a:38:cc:fe:d3:7d:d0:74:bf:f7"]
+          fingerprints: ["e9:62:86:70:da:b9:1a:eb:be:7f:16:c9:46:f8:12:48"]
       - attach_workspace:
-          at: .
+          at: ~/
       - run:
           name: Make sure inventory file present
           command: cat .circleci/ansible/inventory.txt
@@ -250,7 +251,7 @@ jobs:
           command: |
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
-              curl https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+              curl https://kvdb.io/N7hgssNo1zoM8xxXcRMMeJ/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - destroy-environment:
           ID: ${CIRCLE_WORKFLOW_ID:0:7}

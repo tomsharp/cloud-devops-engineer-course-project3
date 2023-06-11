@@ -206,13 +206,16 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-        fingerprints: ["e9:62:86:70:da:b9:1a:eb:be:7f:16:c9:46:f8:12:48"]
+          fingerprints: ["e9:62:86:70:da:b9:1a:eb:be:7f:16:c9:46:f8:12:48"]
       - run:
           name: Install dependencies
           command: |
             apk add --update ansible
       - attach_workspace:
           at: ~/
+      - run:
+          name: check inventory
+          command: cat inventory.txt
       - run:
           name: Configure server
           command: |

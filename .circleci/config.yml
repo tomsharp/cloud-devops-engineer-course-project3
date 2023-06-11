@@ -214,13 +214,10 @@ jobs:
             sudo apt install software-properties-common -y
             sudo add-apt-repository --yes --update ppa:ansible/ansible
             sudo apt install ansible -y
-      - add_ssh_keys:
-          fingerprints: ["e9:62:86:70:da:b9:1a:eb:be:7f:16:c9:46:f8:12:48"]
       - attach_workspace:
           at: ~/
-      - run:
-          name: Make sure inventory file present
-          command: cat .circleci/ansible/inventory.txt
+      - add_ssh_keys:
+          fingerprints: ["e9:62:86:70:da:b9:1a:eb:be:7f:16:c9:46:f8:12:48"]
       - run:
           name: Configure server
           command: |

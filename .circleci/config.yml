@@ -215,7 +215,7 @@ jobs:
           at: ~/
       - run:
           name: check inventory
-          command: cat inventory.txt
+          command: cat .circleci/ansible/inventory.txt
       - run:
           name: Configure server
           command: |

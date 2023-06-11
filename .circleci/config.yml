@@ -186,6 +186,7 @@ jobs:
               --stack-name "udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --query "Stacks[0].Outputs[0].OutputValue" \
               --output text >> .circleci/ansible/inventory.txt
+            echo ansible_user=ubuntu >> .circleci/ansible/inventory.txt
             cat .circleci/ansible/inventory.txt
       - run:
           name: Ensure front-end infrastructure exist
